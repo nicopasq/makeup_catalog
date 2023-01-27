@@ -31,3 +31,23 @@ function cardKeys(fetchUrl) {
        return cardObj;
      });
  }
+ const url = "http://makeup-api.herokuapp.com/api/v1/products.json";
+ function createCards(fetchUrl = url) {
+    const photoGal = document.getElementById("photos");
+    cardKeys(fetchUrl).then((resp) => {
+      resp.forEach((dataSet) => {
+        if (dataSet[1] !== "0.0" && dataSet[1] !== undefined) {
+          let obj = createCardObj(dataSet);
+          let cardDiv = document.createElement("div");
+          cardDiv.id = "card";
+          cardDiv.className = "front";
+          cardDiv.innerHTML = `<img src =${obj.img} alt="image link no longer exists">
+              <p>${obj.name}</p>
+              <p>${obj.brand}</p>
+              <p id='desc'>${obj.description}</p>
+              <button id="link"><a href="${obj.link}">Buy Now</a></button>`;
+          photoGal.appendChild(cardDiv);
+      }
+  });
+  });
+  }
