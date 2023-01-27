@@ -1,0 +1,8 @@
+/* filter container*/
+#filter{
+    position: relative;
+    top: 42px;
+    border: 1px solid black;
+    width:240px;
+    background-color: rgb(255, 241, 217);
+}
