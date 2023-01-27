@@ -6,3 +6,19 @@
     width:240px;
     background-color: rgb(255, 241, 217);
 }
+/*HTML form*/
+#filterForm div{
+    border-bottom: 2px solid black;
+}
+#titleDiv{
+    text-align: center;
+    padding: 20px;
+}
+#brand{
+    margin: 3px;
+    display:block;
+}
+#brand p{
+    font-size: large;
+    display: inline-flex;
+}
