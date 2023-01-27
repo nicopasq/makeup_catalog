@@ -118,3 +118,14 @@ function flip() {
       });
     });
   }
+  function reset(){
+    const resetBtn = document.getElementById('reset')
+    const photoGal = document.getElementById('photos')
+    resetBtn.addEventListener('click', e => {
+        photoGal.innerHTML=``
+        let resetSearch = createCards(url)
+        if(resetSearch !== undefined){
+            photoGal.append(resetSearch)
+        }
+    })
+  }
