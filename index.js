@@ -2,6 +2,7 @@
 addEventListener('DOMContentLoaded', e => {
     createCards()
     reset()
+    searchByType()
 })
 
 
