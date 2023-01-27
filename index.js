@@ -1,3 +1,9 @@
+// ON LOAD
+addEventListener('DOMContentLoaded', e => {
+    createCards()
+})
+
+
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
 function createCardObj(arr) {
     const card = {
