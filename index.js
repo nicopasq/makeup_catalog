@@ -83,6 +83,16 @@ function filter(){
         e.preventDefault()
         photoGal.innerHTML=``
         let brand = `brand=${document.getElementById('brandsDropdown').value.toLowerCase()}`
+        prodTypeSearch().forEach(obj => {
+            let prodType = `&product_tpye=${Object.keys(obj)[0].toLowerCase()}`
+            let prodCat=`&product_category=${Object.values(obj)}`
+            if(prodCat !== '&product_category=select' && prodCat !== '&product_type=all'){
+                let searchRes = createCards(url.concat(brand, prodType, prodCat))
+                if(searchRes !== undefined){
+                    photoGal.append(searchRes)
+                }
+            }      
+})
 })
 }
 function prodTypeSearch(){
