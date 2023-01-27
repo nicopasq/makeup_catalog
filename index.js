@@ -85,6 +85,17 @@ function filter(){
         let brand = `brand=${document.getElementById('brandsDropdown').value.toLowerCase()}`
 })
 }
+function prodTypeSearch(){
+    const searchVals = []
+    let prodType = document.querySelectorAll('.category')
+    prodType.forEach(item => {
+      let obj = {}
+        let makeupType = item.parentElement.querySelector('p').textContent
+        obj[makeupType] = item.value
+        searchVals.push(obj)
+    })
+    return searchVals
+  }
 function flip() {
     const cards = document.querySelectorAll("#card");
     cards.forEach((div) => {
