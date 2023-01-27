@@ -11,3 +11,23 @@ function createCardObj(arr) {
     };
     return card;
 }
+function cardKeys(fetchUrl) {
+    return fetch(fetchUrl)
+     .then((resp) => resp.json())
+     .then((data) => {
+       let cardObj = [];
+       data.forEach((obj) => {
+         let cardData = [
+           obj.image_link,
+           obj.price,
+           obj.name,
+           obj.brand,
+           obj.description,
+           obj.product_link,
+           obj.product_type
+         ];
+         cardObj.push(cardData);
+       });
+       return cardObj;
+     });
+ }
