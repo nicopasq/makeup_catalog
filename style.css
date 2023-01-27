@@ -51,5 +51,15 @@
     text-align:center;
 }
 /*Card Style Front*/
-
+#card.front{
+    background: white;
+    color: black;
+}
+#card.front img{
+    width: 198px;
+    height: 150px;
+}
+#desc{
+    display: none;
+}
 /*Card Style Back*/
