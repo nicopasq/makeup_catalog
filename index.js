@@ -55,6 +55,7 @@ function cardKeys(fetchUrl) {
           photoGal.appendChild(cardDiv);
       }
   });
+  flip()
   });
   }
 
