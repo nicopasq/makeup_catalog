@@ -22,3 +22,21 @@
     font-size: large;
     display: inline-flex;
 }
+/*Gallery*/
+#photos{
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: 20px;
+    position: relative;
+    float: right;
+    top: 42px;
+    width: 87%;
+    height:100%;
+}
+#searchBar{
+    width: 400px;
+    position: relative;
+    left: 40%;
+    top: 10px;
+    border-radius: 10px;
+}
