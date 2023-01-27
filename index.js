@@ -75,6 +75,16 @@ function cardKeys(fetchUrl) {
         }
     })
 }
+function filter(){
+    const form = document.getElementById('filterForm')
+    const photoGal = document.getElementById('photos')
+    let url = 'http://makeup-api.herokuapp.com/api/v1/products.json?'
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+        photoGal.innerHTML=``
+        let brand = `brand=${document.getElementById('brandsDropdown').value.toLowerCase()}`
+})
+}
 function flip() {
     const cards = document.querySelectorAll("#card");
     cards.forEach((div) => {
