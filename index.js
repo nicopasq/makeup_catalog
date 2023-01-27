@@ -57,3 +57,20 @@ function cardKeys(fetchUrl) {
   });
   });
   }
+
+  //ADDING FUNCTIONALITY TO PAGE
+  function searchByType(){
+    let url =`http://makeup-api.herokuapp.com/api/v1/products.json?`
+    const photoGal = document.getElementById('photos')
+    let searchBar = document.getElementById('searchBar')
+    searchBar.addEventListener('keydown', e => {
+        if (e.key === 'Enter'){
+            let searchVal = searchBar.value
+            let searchRes = createCards(url.concat(`product_type=${searchVal}`))
+            photoGal.innerHTML=``
+            if(searchRes !== undefined){
+                photoGal.append(searchRes)
+            }
+        }
+    })
+}
