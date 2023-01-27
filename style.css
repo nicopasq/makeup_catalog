@@ -63,3 +63,14 @@
     display: none;
 }
 /*Card Style Back*/
+#card.back img{
+    display: none;
+}
+#card.back {
+    background: red;
+    color: red;
+}
+#card.back #desc{
+    display: contents;
+    color: black;
+}
