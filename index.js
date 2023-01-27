@@ -74,3 +74,15 @@ function cardKeys(fetchUrl) {
         }
     })
 }
+function flip() {
+    const cards = document.querySelectorAll("#card");
+    cards.forEach((div) => {
+      div.addEventListener("click", (e) => {
+        if (div.className === "front") {
+          div.className = "back";
+        } else if (div.className === "back") {
+          div.className = "front";
+        }
+      });
+    });
+  }
