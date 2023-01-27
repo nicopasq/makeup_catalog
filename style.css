@@ -40,6 +40,16 @@
     top: 10px;
     border-radius: 10px;
 }
+/*Card Containers*/
+#card{
+    background-color: white;
+    width: 200px;
+    height: 300px;
+    box-sizing: border-box;
+    border:1px solid black;
+    float: left;
+    text-align:center;
+}
 /*Card Style Front*/
 
 /*Card Style Back*/
