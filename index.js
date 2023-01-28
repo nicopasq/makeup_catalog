@@ -87,14 +87,7 @@ function filter(){
         photoGal.innerHTML=``
         let brand = `brand=${document.getElementById('brandsDropdown').value.toLowerCase()}`
         prodTypeSearch().forEach(obj => {
-            let prodType = `&product_tpye=${Object.keys(obj)[0].toLowerCase()}`
-            let prodCat=`&product_category=${Object.values(obj)}`
-            if(prodCat !== '&product_category=select' && prodCat !== '&product_type=all'){
-                let searchRes = createCards(url.concat(brand, prodType, prodCat))
-                if(searchRes !== undefined){
-                    photoGal.append(searchRes)
-                }
-            }      
+            console.log(obj)    
 })
 })
 }
@@ -102,10 +95,17 @@ function prodTypeSearch(){
     const searchVals = []
     let prodType = document.querySelectorAll('.category')
     prodType.forEach(item => {
-      let obj = {}
-        let makeupType = item.parentElement.querySelector('p').textContent
-        obj[makeupType] = item.value
-        searchVals.push(obj)
+      let urlAppend;
+        let makeupType = `product_type=${item.parentElement.querySelector('p').textContent}`
+        let prodCat = `product_category=${item.value}`
+        if(item.value === 'all'){
+            urlAppend = `&${makeupType}`
+        } else if(item.value === 'select'){
+            urlAppend = ''
+        } else{
+            urlAppend = `&${makeupType}&${prodCat}`
+        }
+        searchVals.push(urlAppend.toLowerCase())
     })
     return searchVals
   }
