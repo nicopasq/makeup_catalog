@@ -86,12 +86,17 @@ function filter() {
         e.preventDefault()
         photoGal.innerHTML = ``
         let brand = document.getElementById('brandsDropdown').value.toLowerCase()
-        let newUrl = url
-        if(brand !== 'select brand' && document.querySelectorAll('.category').value === undefined){
-            createCards(newUrl.concat(`brand=${brand}`))
-        }
+        let productInfo;
         prodTypeSearch().forEach(str => {
+            if(str.length !== 0){
+                productInfo = str
+            }
         })
+        if(brand !== 'select brand' && productInfo === undefined){
+            createCards(url.concat(`brand=${brand}`))
+        } else if (brand !== 'select brand' && productInfo !== undefined){
+            createCards(url.concat(`brand=${brand}&${productInfo}`))
+        }
     })
 }
 function prodTypeSearch() {
@@ -135,3 +140,4 @@ function reset() {
         }
     })
 }
+
