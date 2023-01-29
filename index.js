@@ -96,6 +96,8 @@ function filter() {
             createCards(url.concat(`brand=${brand}`))
         } else if (brand !== 'select brand' && productInfo !== undefined){
             createCards(url.concat(`brand=${brand}&${productInfo}`))
+        } else if (brand === 'select brand' && productInfo !== undefined){
+            createCards(url.concat(productInfo))
         }
     })
 }
