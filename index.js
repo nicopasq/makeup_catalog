@@ -24,7 +24,7 @@ function cardKeys(fetchUrl = url) {
                     type: obj.product_type
                 };
                 if (card.price !== "$0.0" && card.price !== undefined) {
-                return createCards(card)
+                return createCards(card) 
                 }
             })
         })
@@ -41,8 +41,8 @@ function createCards(card) {
         <p id='desc'>${card.description}</p>
         <button id="link"><a href="${card.link}">Buy Now</a></button>`;
         photoGal.appendChild(cardDiv);
-flip()
-}
+        flip(cardDiv)
+    }
 
 //ADDING FUNCTIONALITY TO PAGE
 function searchByType() {
@@ -101,17 +101,14 @@ function prodTypeSearch() {
     })
     return searchVals
 }
-function flip() {
-    const cards = document.querySelectorAll("#card");
-    cards.forEach((div) => {
-        div.addEventListener("click", (e) => {
-            if (div.className === "front") {
-                div.className = "back";
-            } else if (div.className === "back") {
-                div.className = "front";
+function flip(cardDiv) {
+        cardDiv.addEventListener("click", (e) => {
+            if (cardDiv.className === "front") {
+                cardDiv.className = "back";
+            } else if (cardDiv.className === "back") {
+                cardDiv.className = "front";
             }
         });
-    });
 }
 function reset() {
     const resetBtn = document.getElementById('reset')
