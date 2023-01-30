@@ -83,21 +83,19 @@ function filter() {
         }
     })
 }
-function prodTypeSearch() {
+function productSearchValues (){
     const searchVals = []
-    let prodType = document.querySelectorAll('.category')
-    prodType.forEach(item => {
-        let urlAppend;
-        let makeupType = `product_type=${item.parentElement.querySelector('p').textContent}`
-        let prodCat = `product_category=${item.value}`
-        if (item.value === 'all') {
-            urlAppend = makeupType
-        } else if (item.value === 'select') {
-            urlAppend = ''
-        } else {
-            urlAppend = `${makeupType}&${prodCat}`
-        }
-        searchVals.push(urlAppend.toLowerCase())
+    let urlConcat 
+    const productDropdown = document.querySelectorAll('.productDropdown')
+    productDropdown.forEach(item => {
+        let prodType = item.querySelector('p').textContent
+        let productCat = item.querySelector('.category').value
+        if(productCat === 'all'){
+            urlConcat = `product_type=${prodType}`
+        } else if(productCat === 'select'){
+            urlConcat = ''
+        } else{urlConcat = `product_type=${prodType}&product_category=${productCat}`}
+        searchVals.push(urlConcat.toLowerCase())
     })
     return searchVals
 }
