@@ -8,8 +8,10 @@ addEventListener('DOMContentLoaded', e => {
 
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
+const photoGal = document.getElementById('photos')
 const url = "http://makeup-api.herokuapp.com/api/v1/products.json"
 function cardKeys(fetchUrl = url) {
+    photoGal.innerHTML = ''
     return fetch(fetchUrl)
         .then((resp) => resp.json())
         .then((arrOfObj) => {
@@ -31,7 +33,6 @@ function cardKeys(fetchUrl = url) {
 }
 
 function createCards(card) {
-    const photoGal = document.getElementById("photos");
         const cardDiv = document.createElement('div')
         cardDiv.id = 'card'
         cardDiv.className = 'front'
@@ -47,7 +48,6 @@ function createCards(card) {
 //ADDING FUNCTIONALITY TO PAGE
 function searchByType() {
     let url = `http://makeup-api.herokuapp.com/api/v1/products.json?`
-    const photoGal = document.getElementById('photos')
     let searchBar = document.getElementById('searchBar')
     searchBar.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
@@ -62,7 +62,6 @@ function searchByType() {
 }
 function filter() {
     const form = document.getElementById('filterForm')
-    const photoGal = document.getElementById('photos')
     let url = 'http://makeup-api.herokuapp.com/api/v1/products.json?'
     form.addEventListener('submit', e => {
         e.preventDefault()
