@@ -51,11 +51,7 @@ function searchByType() {
     searchBar.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             let searchVal = searchBar.value
-            let searchRes = cardKeys(url.concat(`product_type=${searchVal}`))
-            photoGal.innerHTML = ``
-            if (searchRes !== undefined) {
-                photoGal.append(searchRes)
-            }
+            return cardKeys(url.concat(`product_type=${searchVal}`))
         }
     })
 }
