@@ -2,7 +2,6 @@
 addEventListener('DOMContentLoaded', e => {
     cardKeys()
     filter()
-    reset()
     searchByType()
 })
 
@@ -52,7 +51,7 @@ function searchByType() {
     searchBar.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             let searchVal = searchBar.value
-            let searchRes = createCards(url.concat(`product_type=${searchVal}`))
+            let searchRes = cardKeys(url.concat(`product_type=${searchVal}`))
             photoGal.innerHTML = ``
             if (searchRes !== undefined) {
                 photoGal.append(searchRes)
@@ -60,27 +59,24 @@ function searchByType() {
         }
     })
 }
-function filter() {
-    const form = document.getElementById('filterForm')
-    let url = 'http://makeup-api.herokuapp.com/api/v1/products.json?'
-    form.addEventListener('submit', e => {
-        e.preventDefault()
-        photoGal.innerHTML = ``
-        let brand = document.getElementById('brandsDropdown').value.toLowerCase()
-        let productInfo;
-        prodTypeSearch().forEach(str => {
-            if(str.length !== 0){
-                productInfo = str
-            }
-        })
-        if(brand !== 'select brand' && productInfo === undefined){
-            createCards(url.concat(`brand=${brand}`))
-        } else if (brand !== 'select brand' && productInfo !== undefined){
-            createCards(url.concat(`brand=${brand}&${productInfo}`))
-        } else if (brand === 'select brand' && productInfo !== undefined){
-            createCards(url.concat(productInfo))
+function filter(){
+    let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`
+    let brand = document.getElementById('brandsDropdown').value.toLowerCase()
+    let newURL = ``;
+    for(let productStr of productSearchValues()){
+        if(brand !== 'select brand' && productStr.length === 0 ){
+            newURL = newURL.concat(`brand=${brand}`)
+            cardKeys(filterURL.concat(newURL))
+        } else if(brand !== 'select brand' && productStr.length !== 0){
+            const urlArr = []
+            newURL = newURL.concat(`brand=${brand}&${productStr}`)
+            urlArr.push(newURL)
+            urlArr.forEach(str => cardKeys(filterURL.concat(str)))
+        } else if(brand === 'select brand' && productStr.length !== 0){
+            newURL = newURL.concat(productStr)
+            cardKeys(filterURL.concat(newURL))
         }
-    })
+    }
 }
 function productSearchValues (){
     const searchVals = []
