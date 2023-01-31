@@ -1,7 +1,6 @@
 // ON LOAD
 addEventListener('DOMContentLoaded', e => {
     cardKeys()
-    filter()
     searchByType()
 })
 
@@ -30,7 +29,6 @@ function cardKeys(fetchUrl = url) {
             })
         })
 }
-
 function createCards(card) {
         const cardDiv = document.createElement('div')
         cardDiv.id = 'card'
@@ -55,6 +53,11 @@ function searchByType() {
         }
     })
 }
+const form = document.getElementById('filterForm')
+form.addEventListener('submit', e => {
+    e.preventDefault()
+    filter()
+})
 function filter(){
     let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`
     let brand = document.getElementById('brandsDropdown').value.toLowerCase()
@@ -99,9 +102,7 @@ function flip(cardDiv) {
             }
         });
 }
-function reset(){
-    const resetBtn = document.getElementById('reset')
-    resetBtn.addEventListener('click', e => {
-        cardKeys()
-    })
-}
+const resetBtn = document.getElementById('reset')
+resetBtn.addEventListener('click', e => {
+    cardKeys()
+})
