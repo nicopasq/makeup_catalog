@@ -75,13 +75,15 @@ function filter(){
             productValues.push(productString)
         }
     }
-    console.log(productValues.length)
     if(brand !== 'select brand' && productValues.length === 0){
         cardKeys(filterURL.concat(`brand=${brand}`))
-    } 
-    if(brand === 'select brand' && productValues.length !== 0){
+    } else if(brand === 'select brand' && productValues.length !== 0){
         for(let searchVal of productValues){
             cardKeys(filterURL.concat(searchVal))
+        }
+    } else if(brand !== 'select brand' && productValues.length !== 0){
+        for(let searchVal of productValues){
+            cardKeys(filterURL.concat(`brand=${brand}&${searchVal}`))
         }
     }
 }
