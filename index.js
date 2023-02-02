@@ -20,11 +20,10 @@ resetBtn.addEventListener('click', e => {
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
 function cardKeys(fetchUrl = url) {
-    photoGal.innerHTML = 'loading...'
+    photoGal.innerHTML = 'Loading...'
     return fetch(fetchUrl)
         .then((resp) => resp.json())
         .then((arrOfObj) => {
-            photoGal.innerHTML=''
             arrOfObj.forEach(obj => {
                 const card = {
                     id: obj.id,
@@ -69,19 +68,10 @@ function searchByType() {
 function filter(){
     let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`
     let brand = document.getElementById('brandsDropdown').value.toLowerCase()
-    let newURL = ``;
-    for(let productStr of productSearchValues()){
-        if(brand !== 'select brand' && productStr.length === 0 ){
-            newURL = newURL.concat(`brand=${brand}`)
-            cardKeys(filterURL.concat(newURL))
-        } else if(brand !== 'select brand' && productStr.length !== 0){
-            const urlArr = []
-            newURL = newURL.concat(`brand=${brand}&${productStr}`)
-            urlArr.push(newURL)
-            urlArr.forEach(str => cardKeys(filterURL.concat(str)))
-        } else if(brand === 'select brand' && productStr.length !== 0){
-            newURL = newURL.concat(productStr)
-            cardKeys(filterURL.concat(newURL))
+    let productStrArr = productSearchValues()
+    for(let productString of productStrArr){
+        if(productString !== ''){
+            cardKeys(filterURL.concat(productString))
         }
     }
 }
