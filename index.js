@@ -20,7 +20,7 @@ resetBtn.addEventListener('click', e => {
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
 function cardKeys(fetchUrl = url) {
-    photoGal.innerHTML = 'Loading...'
+    photoGal.innerHTML = ''
     return fetch(fetchUrl)
         .then((resp) => resp.json())
         .then((arrOfObj) => {
@@ -67,11 +67,21 @@ function searchByType() {
 }
 function filter(){
     let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`
-    let brand = document.getElementById('brandsDropdown').value.toLowerCase()
-    let productStrArr = productSearchValues()
+    const productValues = []
+    let brand = document.getElementById('brandsDropdown').value.toLowerCase();
+    let productStrArr = productSearchValues();
     for(let productString of productStrArr){
         if(productString !== ''){
-            cardKeys(filterURL.concat(productString))
+            productValues.push(productString)
+        }
+    }
+    console.log(productValues.length)
+    if(brand !== 'select brand' && productValues.length === 0){
+        cardKeys(filterURL.concat(`brand=${brand}`))
+    } 
+    if(brand === 'select brand' && productValues.length !== 0){
+        for(let searchVal of productValues){
+            cardKeys(filterURL.concat(searchVal))
         }
     }
 }
