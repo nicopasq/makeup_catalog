@@ -1,18 +1,30 @@
-// ON LOAD
+//variables
+const form = document.getElementById('filterForm')
+const resetBtn = document.getElementById('reset')
+const photoGal = document.getElementById('photos')
+const url = "http://makeup-api.herokuapp.com/api/v1/products.json"
+
+
+//event listeners
 addEventListener('DOMContentLoaded', e => {
     cardKeys()
     searchByType()
 })
-
+form.addEventListener('submit', e => {
+    e.preventDefault()
+    filter()
+})
+resetBtn.addEventListener('click', e => {
+    cardKeys()
+})
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
-const photoGal = document.getElementById('photos')
-const url = "http://makeup-api.herokuapp.com/api/v1/products.json"
 function cardKeys(fetchUrl = url) {
-    photoGal.innerHTML = ''
+    photoGal.innerHTML = 'loading...'
     return fetch(fetchUrl)
         .then((resp) => resp.json())
         .then((arrOfObj) => {
+            photoGal.innerHTML=''
             arrOfObj.forEach(obj => {
                 const card = {
                     id: obj.id,
@@ -54,11 +66,6 @@ function searchByType() {
         }
     })
 }
-const form = document.getElementById('filterForm')
-form.addEventListener('submit', e => {
-    e.preventDefault()
-    filter()
-})
 function filter(){
     let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`
     let brand = document.getElementById('brandsDropdown').value.toLowerCase()
@@ -94,8 +101,6 @@ function productSearchValues (){
     })
     return searchVals
 }
-
-/**Can */
 function flip(div, class1, class2) {
             if(div.classList.contains(class1)){
                 div.classList.remove(class1)
@@ -105,7 +110,3 @@ function flip(div, class1, class2) {
                 div.classList.add(class1)
             }
 }
-const resetBtn = document.getElementById('reset')
-resetBtn.addEventListener('click', e => {
-    cardKeys()
-})
