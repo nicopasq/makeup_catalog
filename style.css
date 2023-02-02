@@ -41,7 +41,7 @@
     border-radius: 10px;
 }
 /*Card Containers*/
-#card{
+.card{
     background-color: white;
     width: 200px;
     height: 300px;
@@ -51,11 +51,11 @@
     text-align:center;
 }
 /*Card Style Front*/
-#card.front{
+.front{
     background: white;
     color: black;
 }
-#card.front img{
+.front img{
     width: 198px;
     height: 150px;
 }
@@ -63,14 +63,14 @@
     display: none;
 }
 /*Card Style Back*/
-#card.back img{
+.back img{
     display: none;
 }
-#card.back {
+.back {
     background: red;
     color: red;
 }
-#card.back #desc{
+.back #desc{
     display: contents;
     color: black;
 }

@@ -15,6 +15,7 @@ function cardKeys(fetchUrl = url) {
         .then((arrOfObj) => {
             arrOfObj.forEach(obj => {
                 const card = {
+                    id: obj.id,
                     img: obj.image_link,
                     price: `$${obj.price}`,
                     name: obj.name,
@@ -31,8 +32,8 @@ function cardKeys(fetchUrl = url) {
 }
 function createCards(card) {
         const cardDiv = document.createElement('div')
-        cardDiv.id = 'card'
-        cardDiv.className = 'front'
+        cardDiv.id = `card_${card.id}`
+        cardDiv.classList.add('card', 'front')
         cardDiv.innerHTML = `<img src =${card.img} alt="image link no longer exists">
         <p>${card.name}</p>
         <p>${card.brand}</p>
@@ -95,10 +96,12 @@ function productSearchValues (){
 }
 function flip(cardDiv) {
         cardDiv.addEventListener("click", (e) => {
-            if (cardDiv.className === "front") {
-                cardDiv.className = "back";
-            } else if (cardDiv.className === "back") {
-                cardDiv.className = "front";
+            if(cardDiv.classList.contains('front')){
+                cardDiv.classList.remove('front')
+                cardDiv.classList.add('back')
+            } else if (cardDiv.classList.contains('back')){
+                cardDiv.classList.remove('back')
+                cardDiv.classList.add('front')
             }
         });
 }
