@@ -39,8 +39,8 @@ function createCards(card) {
         <p>${card.brand}</p>
         <p id='desc'>${card.description}</p>
         <button id="link"><a href="${card.link}">Buy Now</a></button>`;
+        cardDiv.addEventListener("click", e => flip(cardDiv, 'front', 'back'))
         photoGal.appendChild(cardDiv);
-        flip(cardDiv)
     }
 
 //ADDING FUNCTIONALITY TO PAGE
@@ -94,16 +94,16 @@ function productSearchValues (){
     })
     return searchVals
 }
-function flip(cardDiv) {
-        cardDiv.addEventListener("click", (e) => {
-            if(cardDiv.classList.contains('front')){
-                cardDiv.classList.remove('front')
-                cardDiv.classList.add('back')
-            } else if (cardDiv.classList.contains('back')){
-                cardDiv.classList.remove('back')
-                cardDiv.classList.add('front')
+
+/**Can */
+function flip(div, class1, class2) {
+            if(div.classList.contains(class1)){
+                div.classList.remove(class1)
+                div.classList.add(class2)
+            } else if (div.classList.contains(class2)){
+                div.classList.remove(class2)
+                div.classList.add(class1)
             }
-        });
 }
 const resetBtn = document.getElementById('reset')
 resetBtn.addEventListener('click', e => {
