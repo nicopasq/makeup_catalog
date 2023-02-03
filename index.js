@@ -6,41 +6,47 @@ const url = "http://makeup-api.herokuapp.com/api/v1/products.json";
 
 //event listeners
 addEventListener("DOMContentLoaded", (e) => {
-  cardKeys();
+  fetchMakeUp().then(cardArray => renderCards(cardArray));
   searchByType();
 });
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  filter();
+  filterMakeUp();
 });
 resetBtn.addEventListener("click", (e) => {
-  cardKeys();
+  fetchMakeUp().then(res => renderCards(res));
 });
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
-function cardKeys(fetchUrl = url) {
-  photoGal.innerHTML = "";
-  return fetch(fetchUrl)
+function fetchMakeUp(fetchUrl = url) {
+    photoGal.innerHTML = "Loading...";
+    return fetch(fetchUrl)
     .then((resp) => resp.json())
     .then((arrOfObj) => {
-      arrOfObj.forEach((obj) => {
-        const card = {
-          id: obj.id,
-          img: obj.image_link,
-          price: `$${obj.price}`,
-          name: obj.name,
-          brand: obj.brand,
-          description: obj.description,
-          link: obj.product_link,
-          type: obj.product_type,
-        };
-        if (card.price !== "$0.0" && card.price !== undefined) {
-          return createCards(card);
-        }
-      });
+        photoGal.innerHTML = ''
+        return arrOfObj
+    }).catch(err => {
+        photoGal.innerHTML = 'Error'
     });
 }
-function createCards(card) {
+function renderCards(arrayCards) {
+    arrayCards.forEach(obj => {
+        const card = {
+            id: obj.id,
+            img: obj.image_link,
+            price: `$${obj.price}`,
+            name: obj.name,
+            brand: obj.brand,
+            description: obj.description,
+            link: obj.product_link,
+            type: obj.product_type
+        };
+        if (card.price !== "$0.0" && card.price !== undefined) {
+            return appendCard(card)
+        }
+    })
+}
+function appendCard(card) {
   const cardDiv = document.createElement("div");
   cardDiv.id = `card_${card.id}`;
   cardDiv.classList.add("card", "front");
@@ -54,33 +60,38 @@ function createCards(card) {
 }
 //ADDING FUNCTIONALITY TO PAGE
 function searchByType() {
-  let url = `http://makeup-api.herokuapp.com/api/v1/products.json?`;
-  let searchBar = document.getElementById("searchBar");
+  const url = `http://makeup-api.herokuapp.com/api/v1/products.json?`;
+  const searchBar = document.getElementById("searchBar");
   searchBar.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-      let searchVal = searchBar.value;
-      return cardKeys(url.concat(`product_type=${searchVal}`));
+      return fetchMakeUp(url.concat(`product_type=${searchBar.value}`)).then(res => renderCards(res) );
     }
   });
 }
-function filter() {
-  let filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`;
-  const productValues = [];
-  let brand = document.getElementById("brandsDropdown").value.toLowerCase();
-  let productStrArr = productSearchValues();
+function filterMakeUp(){
+    const filterURL = `http://makeup-api.herokuapp.com/api/v1/products.json?`;
+    const brand = document.getElementById("brandsDropdown").value.toLowerCase();
+    const productStrArr = productSearchValues();
 
-  if (brand !== "select brand" && !productStrArr.length) {
-    cardKeys(filterURL.concat(`brand=${brand}`));
-  } else if (brand === "select brand" && productStrArr.length) {
-    for (let searchVal of productStrArr) {
-      cardKeys(filterURL.concat(searchVal));
+    const promises = [];
+
+    if (brand !== "select brand" && !productStrArr.length) {
+      promises.push(fetchMakeUp(filterURL.concat(`brand=${brand}`)));
+    } else if (brand === "select brand" && productStrArr.length) {
+      for (let searchVal of productStrArr) {
+          promises.push(fetchMakeUp(filterURL.concat(searchVal)));
+      }
+    } else if (brand !== "select brand" && productStrArr.length) {
+      for (let searchVal of productStrArr) {
+          promises.push(fetchMakeUp(filterURL.concat(`brand=${brand}&${searchVal}`)));
+      }
     }
-  } else if (brand !== "select brand" && productStrArr.length) {
-    for (let searchVal of productStrArr) {
-      cardKeys(filterURL.concat(`brand=${brand}&${searchVal}`));
-    }
+
+    Promise.all(promises).then(values => {
+      const arr = [].concat.apply([], values);
+      renderCards(arr);
+    })
   }
-}
 function productSearchValues() {
   const productDropdown = [...document.querySelectorAll(".productDropdown")];
   const searchVals = productDropdown.map(item => {
