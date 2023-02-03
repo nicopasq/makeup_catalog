@@ -52,8 +52,7 @@ function createCards(card) {
         <button id="link"><a href="${card.link}">Buy Now</a></button>`;
         cardDiv.addEventListener("click", e => flip(cardDiv, 'front', 'back'))
         photoGal.appendChild(cardDiv);
-    }
-
+}
 //ADDING FUNCTIONALITY TO PAGE
 function searchByType() {
     let url = `http://makeup-api.herokuapp.com/api/v1/products.json?`
