@@ -71,6 +71,10 @@
     color: red;
 }
 .back #desc{
-    display: contents;
+    display: block;
     color: black;
+    font-size: smaller;
+    height: 150px;
+    position: relative;
+    bottom: 80px
 }
