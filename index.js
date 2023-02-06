@@ -15,6 +15,16 @@ form.addEventListener("submit", (e) => {
 });
 resetBtn.addEventListener("click", (e) => {
   fetchMakeUp().then(res => renderCards(res));
+  let brand = document.getElementById("brandsDropdown")
+  const dropdown = document.querySelectorAll('.category')
+  dropdown.forEach(item => {
+    if(item.value !== 'select'){
+      item.value = 'select'
+    }
+  })
+  if (brand.value !== 'Select Brand'){
+    brand.value = 'Select Brand'
+  }
 });
 
 // BASIC PAGE CONTENT... NO FUNCTIONALITIES
